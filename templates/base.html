@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}노인 복지 추천 플랫폼{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    
+    <!-- 접근성 메타태그 -->
+    <meta name="description" content="65세 이상 노인을 위한 맞춤형 복지 혜택 추천 서비스">
+    <meta name="keywords" content="노인복지, 복지혜택, 기초연금, 노인돌봄, 의료지원">
+    
+    <!-- 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 스킵 내비게이션을 위한 스타일 -->
+    <style>
+        .skip-nav {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+        }
+        .skip-nav:focus {
+            top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 스킵 내비게이션 -->
+    <a href="#main-content" class="skip-nav">본문으로 바로가기</a>
+    
+    <!-- 접근성 도구 바 -->
+    <div class="accessibility-toolbar" role="toolbar" aria-label="접근성 도구">
+        <button id="font-size-normal" class="accessibility-btn" aria-label="기본 글씨 크기">가</button>
+        <button id="font-size-large" class="accessibility-btn" aria-label="큰 글씨 크기">가</button>
+        <button id="font-size-xlarge" class="accessibility-btn" aria-label="매우 큰 글씨 크기">가</button>
+        <button id="high-contrast" class="accessibility-btn" aria-label="고대비 모드">고대비</button>
+        <button id="read-aloud" class="accessibility-btn" aria-label="읽어주기">🔊</button>
+    </div>
+    
+    <!-- 헤더 -->
+    <header class="header" role="banner">
+        <div class="container">
+            <h1 class="logo">
+                <a href="{{ url_for('index') }}" aria-label="노인 복지 추천 플랫폼 홈으로 가기">
+                    🏠 노인 복지 추천 플랫폼
+                </a>
+            </h1>
+            
+            <!-- 진행률 표시 (설문 페이지에서만) -->
+            {% if show_progress %}
+            <div class="progress-container" role="progressbar" aria-valuenow="{{ current_step }}" aria-valuemin="1" aria-valuemax="3">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ (current_step / 3) * 100 }}%"></div>
+                </div>
+                <span class="progress-text">{{ current_step }}/3 단계</span>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+    
+    <!-- 메인 컨텐츠 -->
+    <main id="main-content" class="main-content" role="main">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    
+    <!-- 푸터 -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <p>&copy; 2024 노인 복지 추천 플랫폼. 모든 권리 보유.</p>
+            <p>문의: 보건복지부 콜센터 129</p>
+            <ul class="footer-links">
+                <li><a href="#" aria-label="개인정보처리방침">개인정보처리방침</a></li>
+                <li><a href="#" aria-label="이용약관">이용약관</a></li>
+                <li><a href="#" aria-label="접근성 도움말">접근성 도움말</a></li>
+            </ul>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

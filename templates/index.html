@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}노인 복지 추천 플랫폼 - 맞춤형 복지 혜택 찾기{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">🌟 나에게 맞는 복지 혜택을 찾아보세요</h1>
+        <p class="hero-description">
+            간단한 질문에 답하시면, 귀하의 상황에 맞는<br>
+            복지 프로그램을 추천해드립니다.
+        </p>
+        
+        <div class="hero-features">
+            <div class="feature-item">
+                <div class="feature-icon">📝</div>
+                <h3>간단한 문진</h3>
+                <p>3단계로 나누어 쉽게 답변</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🤖</div>
+                <h3>AI 맞춤 추천</h3>
+                <p>개인 상황에 최적화된 추천</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📞</div>
+                <h3>신청 방법 안내</h3>
+                <p>상세한 신청 절차 제공</p>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <a href="{{ url_for('survey') }}" class="cta-button primary" role="button" aria-label="복지 혜택 찾기 시작하기">
+                🚀 복지 혜택 찾기 시작하기
+            </a>
+            <p class="cta-note">✅ 로그인 불필요 | ✅ 무료 서비스 | ✅ 개인정보 보호</p>
+        </div>
+    </div>
+</div>
+
+<div class="info-section">
+    <div class="container">
+        <h2 class="section-title">이런 분들에게 도움이 됩니다</h2>
+        <div class="target-users">
+            <div class="user-card">
+                <div class="user-icon">👵</div>
+                <h3>65세 이상 어르신</h3>
+                <p>기초연금, 의료비 지원 등<br>다양한 복지 혜택 안내</p>
+            </div>
+            <div class="user-card">
+                <div class="user-icon">🏠</div>
+                <h3>독거 어르신</h3>
+                <p>생활관리사 파견, 돌봄 서비스 등<br>독거 생활 지원 서비스</p>
+            </div>
+            <div class="user-card">
+                <div class="user-icon">💊</div>
+                <h3>건강 관리가 필요한 어르신</h3>
+                <p>의료비 지원, 건강 관리 프로그램 등<br>건강 관련 복지 서비스</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="process-section">
+    <div class="container">
+        <h2 class="section-title">이용 방법</h2>
+        <div class="process-steps">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>기본 정보 입력</h3>
+                    <p>이름, 나이, 거주지역 등<br>기본 정보를 입력합니다</p>
+                </div>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>상황 문진</h3>
+                    <p>건강 상태, 생활 상황을<br>간단히 선택합니다</p>
+                </div>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>맞춤 추천 확인</h3>
+                    <p>AI가 추천하는<br>복지 프로그램을 확인합니다</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="contact-section">
+    <div class="container">
+        <h2 class="section-title">문의 및 도움</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <h3>전화 문의</h3>
+                <p>보건복지부 콜센터<br><strong>129</strong></p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">🏢</div>
+                <h3>방문 상담</h3>
+                <p>가까운 주민센터 또는<br>복지관에서 상담 가능</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">🌐</div>
+                <h3>온라인 상담</h3>
+                <p>정부24 복지 포털<br>온라인 상담 서비스</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="final-cta">
+    <div class="container">
+        <h2>지금 바로 시작해보세요!</h2>
+        <a href="{{ url_for('survey') }}" class="cta-button secondary" role="button" aria-label="복지 혜택 찾기 시작">
+            📋 복지 혜택 찾기 시작
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// 메인 페이지 스크립트
+document.addEventListener('DOMContentLoaded', function() {
+    // 버튼 클릭 시 접근성 안내
+    const ctaButtons = document.querySelectorAll('.cta-button');
+    ctaButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // 음성 안내 (Web Speech API 지원 시)
+            if ('speechSynthesis' in window) {
+                const msg = new SpeechSynthesisUtterance('복지 혜택 찾기를 시작합니다.');
+                msg.lang = 'ko-KR';
+                msg.rate = 0.8;
+                speechSynthesis.speak(msg);
+            }
+        });
+    });
+});
+</script>
+{% endblock %} 

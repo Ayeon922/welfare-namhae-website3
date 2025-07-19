@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}복지 혜택 찾기 시작 - 노인 복지 추천 플랫폼{% endblock %}
+
+{% block content %}
+<div class="survey-intro">
+    <div class="intro-header">
+        <h1 class="intro-title">📋 복지 혜택 찾기</h1>
+        <p class="intro-subtitle">3단계 간단한 질문으로 맞춤형 복지 프로그램을 추천받으세요</p>
+    </div>
+    
+    <div class="intro-content">
+        <div class="intro-steps">
+            <h2>📝 진행 과정</h2>
+            <div class="step-preview">
+                <div class="preview-step">
+                    <div class="step-icon">1️⃣</div>
+                    <div class="step-info">
+                        <h3>기본 정보</h3>
+                        <p>이름, 나이, 거주지역</p>
+                        <span class="step-time">약 1분</span>
+                    </div>
+                </div>
+                <div class="preview-step">
+                    <div class="step-icon">2️⃣</div>
+                    <div class="step-info">
+                        <h3>건강 상태</h3>
+                        <p>질병, 장애, 복용 약물</p>
+                        <span class="step-time">약 2분</span>
+                    </div>
+                </div>
+                <div class="preview-step">
+                    <div class="step-icon">3️⃣</div>
+                    <div class="step-info">
+                        <h3>생활 상황</h3>
+                        <p>가족 구성, 소득, 주거</p>
+                        <span class="step-time">약 1분</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="intro-benefits">
+            <h2>✨ 받을 수 있는 혜택</h2>
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">💰</div>
+                    <span>기초연금 (월 최대 323,180원)</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🏥</div>
+                    <span>의료비 지원 (80-100% 지원)</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🏠</div>
+                    <span>독거노인 생활관리사 파견</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">💼</div>
+                    <span>노인 일자리 사업 참여</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🔧</div>
+                    <span>장기요양보험 서비스</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="privacy-notice">
+            <h2>🔒 개인정보 보호</h2>
+            <div class="privacy-content">
+                <div class="privacy-item">
+                    <div class="privacy-icon">✅</div>
+                    <p><strong>로그인 불필요</strong><br>회원가입 없이 바로 이용 가능</p>
+                </div>
+                <div class="privacy-item">
+                    <div class="privacy-icon">🗑️</div>
+                    <p><strong>자동 삭제</strong><br>입력한 정보는 24시간 후 자동 삭제</p>
+                </div>
+                <div class="privacy-item">
+                    <div class="privacy-icon">🔐</div>
+                    <p><strong>암호화 처리</strong><br>모든 데이터는 안전하게 암호화</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="consent-form">
+            <h2>📋 이용 동의</h2>
+            <div class="consent-items">
+                <label class="consent-item">
+                    <input type="checkbox" id="consent-service" required>
+                    <span class="checkmark"></span>
+                    <span class="consent-text">
+                        <strong>[필수] 서비스 이용 동의</strong><br>
+                        복지 혜택 추천을 위한 개인정보 수집 및 이용에 동의합니다.
+                    </span>
+                </label>
+                
+                <label class="consent-item">
+                    <input type="checkbox" id="consent-privacy" required>
+                    <span class="checkmark"></span>
+                    <span class="consent-text">
+                        <strong>[필수] 개인정보 처리방침 동의</strong><br>
+                        개인정보 보호법에 따른 개인정보 처리방침에 동의합니다.
+                    </span>
+                </label>
+                
+                <label class="consent-item">
+                    <input type="checkbox" id="consent-optional">
+                    <span class="checkmark"></span>
+                    <span class="consent-text">
+                        <strong>[선택] 서비스 개선을 위한 데이터 활용 동의</strong><br>
+                        더 나은 서비스 제공을 위한 통계 분석에 동의합니다.
+                    </span>
+                </label>
+            </div>
+            
+            <button id="consent-all" class="consent-all-btn">모두 동의하기</button>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('index') }}" class="btn-secondary" role="button">
+                ← 처음으로 돌아가기
+            </a>
+            <button id="start-survey" class="btn-primary" disabled>
+                시작하기 →
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const consentService = document.getElementById('consent-service');
+    const consentPrivacy = document.getElementById('consent-privacy');
+    const consentOptional = document.getElementById('consent-optional');
+    const consentAllBtn = document.getElementById('consent-all');
+    const startSurveyBtn = document.getElementById('start-survey');
+    
+    // 필수 동의 체크 상태 확인
+    function checkRequiredConsent() {
+        const isRequiredChecked = consentService.checked && consentPrivacy.checked;
+        startSurveyBtn.disabled = !isRequiredChecked;
+        
+        if (isRequiredChecked) {
+            startSurveyBtn.classList.add('enabled');
+        } else {
+            startSurveyBtn.classList.remove('enabled');
+        }
+    }
+    
+    // 모두 동의 버튼
+    consentAllBtn.addEventListener('click', function() {
+        consentService.checked = true;
+        consentPrivacy.checked = true;
+        consentOptional.checked = true;
+        checkRequiredConsent();
+    });
+    
+    // 각 체크박스 이벤트
+    consentService.addEventListener('change', checkRequiredConsent);
+    consentPrivacy.addEventListener('change', checkRequiredConsent);
+    
+    // 설문 시작 버튼
+    startSurveyBtn.addEventListener('click', function() {
+        if (!startSurveyBtn.disabled) {
+            // 음성 안내
+            if ('speechSynthesis' in window) {
+                const msg = new SpeechSynthesisUtterance('첫 번째 단계를 시작합니다.');
+                msg.lang = 'ko-KR';
+                msg.rate = 0.8;
+                speechSynthesis.speak(msg);
+            }
+            
+            // 첫 번째 단계로 이동
+            window.location.href = "{{ url_for('survey_step1') }}";
+        }
+    });
+    
+    // 키보드 접근성
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && e.target.type === 'checkbox') {
+            e.target.checked = !e.target.checked;
+            checkRequiredConsent();
+        }
+    });
+    
+    // 초기 상태 확인
+    checkRequiredConsent();
+});
+</script>
+{% endblock %} 

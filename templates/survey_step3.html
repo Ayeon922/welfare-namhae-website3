@@ -1,0 +1,564 @@
+{% extends "base.html" %}
+
+{% set show_progress = true %}
+{% set current_step = 3 %}
+
+{% block title %}3단계: 생활 상황 - 노인 복지 추천 플랫폼{% endblock %}
+
+{% block content %}
+<div class="survey-step">
+    <div class="step-header">
+        <h1 class="step-title">3단계: 생활 상황 확인</h1>
+        <p class="step-description">마지막 단계입니다. 현재 생활 상황에 대해 알려주시면, 맞춤형 복지 프로그램을 추천해드리겠습니다.</p>
+    </div>
+    
+    <form id="step3-form" class="survey-form">
+        <div class="form-section">
+            <h2 class="section-title">👨‍👩‍👧‍👦 가족 구성</h2>
+            
+            <div class="form-group">
+                <label class="form-label">현재 함께 살고 계신 분 <span class="required">*</span></label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="alone" name="living_situation" value="alone" required>
+                        <label for="alone">
+                            <strong>혼자 생활</strong>
+                            <span class="condition-desc">독거 생활</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="with_spouse" name="living_situation" value="spouse" required>
+                        <label for="with_spouse">
+                            <strong>배우자와 함께</strong>
+                            <span class="condition-desc">부부 생활</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="with_children" name="living_situation" value="children" required>
+                        <label for="with_children">
+                            <strong>자녀와 함께</strong>
+                            <span class="condition-desc">성인 자녀와 동거</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="with_family" name="living_situation" value="extended_family" required>
+                        <label for="with_family">
+                            <strong>가족들과 함께</strong>
+                            <span class="condition-desc">3세대 이상 동거</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="with_others" name="living_situation" value="others" required>
+                        <label for="with_others">
+                            <strong>기타</strong>
+                            <span class="condition-desc">친구, 이웃 등</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="family_support" class="form-label">가족의 도움 정도</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="no_support" name="family_support" value="none">
+                        <label for="no_support">도움을 받기 어려움</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="occasional_support" name="family_support" value="occasional">
+                        <label for="occasional_support">가끔 도움을 받음</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="regular_support" name="family_support" value="regular">
+                        <label for="regular_support">정기적으로 도움을 받음</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="full_support" name="family_support" value="full">
+                        <label for="full_support">항상 도움을 받음</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="section-title">🏠 주거 환경</h2>
+            
+            <div class="form-group">
+                <label class="form-label">주거 형태 <span class="required">*</span></label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="own_house" name="housing_type" value="own_house" required>
+                        <label for="own_house">
+                            <strong>자가 주택</strong>
+                            <span class="condition-desc">본인 소유의 집</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="rental" name="housing_type" value="rental" required>
+                        <label for="rental">
+                            <strong>임대 주택</strong>
+                            <span class="condition-desc">전세, 월세</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="public_rental" name="housing_type" value="public_rental" required>
+                        <label for="public_rental">
+                            <strong>공공 임대</strong>
+                            <span class="condition-desc">LH, SH 등</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="children_house" name="housing_type" value="children_house" required>
+                        <label for="children_house">
+                            <strong>자녀 집</strong>
+                            <span class="condition-desc">자녀 소유 집에 거주</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="facility" name="housing_type" value="facility" required>
+                        <label for="facility">
+                            <strong>시설</strong>
+                            <span class="condition-desc">요양원, 실버타운 등</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">주거 환경 상태</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="barrier_free" name="barrier_free" value="true">
+                        <label for="barrier_free">
+                            <strong>무장애 시설</strong>
+                            <span class="condition-desc">휠체어 접근 가능</span>
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="elevator" name="elevator" value="true">
+                        <label for="elevator">
+                            <strong>엘리베이터</strong>
+                            <span class="condition-desc">층간 이동 편의</span>
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="emergency_bell" name="emergency_bell" value="true">
+                        <label for="emergency_bell">
+                            <strong>응급벨</strong>
+                            <span class="condition-desc">응급상황 알림 시설</span>
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="heating_issue" name="heating_issue" value="true">
+                        <label for="heating_issue">
+                            <strong>난방 문제</strong>
+                            <span class="condition-desc">겨울철 난방 어려움</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="section-title">💰 경제 상황</h2>
+            
+            <div class="form-group">
+                <label class="form-label">월 소득 수준 <span class="required">*</span></label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="income_very_low" name="income_level" value="very_low" required>
+                        <label for="income_very_low">
+                            <strong>50만원 미만</strong>
+                            <span class="condition-desc">기초생활수급 수준</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="income_low" name="income_level" value="low" required>
+                        <label for="income_low">
+                            <strong>50만원 ~ 100만원</strong>
+                            <span class="condition-desc">차상위 계층 수준</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="income_medium" name="income_level" value="medium" required>
+                        <label for="income_medium">
+                            <strong>100만원 ~ 200만원</strong>
+                            <span class="condition-desc">중간 소득층</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="income_high" name="income_level" value="high" required>
+                        <label for="income_high">
+                            <strong>200만원 이상</strong>
+                            <span class="condition-desc">상위 소득층</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">주요 수입원</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="pension" name="pension" value="true">
+                        <label for="pension">국민연금</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="basic_pension" name="basic_pension" value="true">
+                        <label for="basic_pension">기초연금</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="basic_livelihood" name="basic_livelihood" value="true">
+                        <label for="basic_livelihood">기초생활급여</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="work_income" name="work_income" value="true">
+                        <label for="work_income">근로소득</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="family_support_income" name="family_support_income" value="true">
+                        <label for="family_support_income">가족 지원</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="other_income" name="other_income" value="true">
+                        <label for="other_income">기타 수입</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">경제적 어려움 정도</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="financial_stable" name="financial_difficulty" value="stable">
+                        <label for="financial_stable">경제적으로 안정됨</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="financial_manageable" name="financial_difficulty" value="manageable">
+                        <label for="financial_manageable">생활비는 충당 가능</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="financial_tight" name="financial_difficulty" value="tight">
+                        <label for="financial_tight">가끔 생활비 부족</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="financial_difficult" name="financial_difficulty" value="difficult">
+                        <label for="financial_difficult">항상 생활비 부족</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="section-title">🚶‍♂️ 일상 활동</h2>
+            
+            <div class="form-group">
+                <label class="form-label">외출 빈도</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="daily_outing" name="outing_frequency" value="daily">
+                        <label for="daily_outing">거의 매일 외출</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="weekly_outing" name="outing_frequency" value="weekly">
+                        <label for="weekly_outing">주 2-3회 외출</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="rare_outing" name="outing_frequency" value="rare">
+                        <label for="rare_outing">가끔 외출</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="no_outing" name="outing_frequency" value="none">
+                        <label for="no_outing">거의 외출 안 함</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">사회 활동 참여</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="senior_center" name="senior_center" value="true">
+                        <label for="senior_center">경로당/노인복지관</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="religious_activity" name="religious_activity" value="true">
+                        <label for="religious_activity">종교 활동</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="volunteer" name="volunteer" value="true">
+                        <label for="volunteer">자원봉사</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hobbies" name="hobbies" value="true">
+                        <label for="hobbies">취미 활동</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="exercise" name="exercise" value="true">
+                        <label for="exercise">운동/체육 활동</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="no_activities" name="no_activities" value="true">
+                        <label for="no_activities">특별한 활동 없음</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="section-title">📋 추가 정보</h2>
+            
+            <div class="form-group">
+                <label for="special_needs" class="form-label">특별한 도움이 필요한 분야</label>
+                <textarea 
+                    id="special_needs" 
+                    name="special_needs" 
+                    class="form-textarea"
+                    rows="3"
+                    placeholder="예: 집안 청소, 장보기, 병원 동행, 말벗 서비스 등"
+                    aria-describedby="needs-help"
+                ></textarea>
+                <div id="needs-help" class="form-help">
+                    💡 현재 가장 필요하다고 생각하시는 도움이나 서비스가 있으시면 적어주세요.
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="additional_info" class="form-label">기타 의견</label>
+                <textarea 
+                    id="additional_info" 
+                    name="additional_info" 
+                    class="form-textarea"
+                    rows="3"
+                    placeholder="복지 서비스 추천과 관련하여 추가로 알려주시고 싶은 내용이 있으시면 자유롭게 적어주세요."
+                    aria-describedby="additional-help"
+                ></textarea>
+                <div id="additional-help" class="form-help">
+                    💡 추가로 전하고 싶은 말씀이나 특별한 상황이 있으시면 적어주세요.
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-validation" id="form-validation" style="display: none;">
+            <div class="validation-message error">
+                <span class="validation-icon">⚠️</span>
+                <span id="validation-text">필수 항목을 모두 선택해주세요.</span>
+            </div>
+        </div>
+        
+        <div class="form-actions">
+            <button type="button" class="btn-secondary" onclick="window.location.href='{{ url_for('survey_step2') }}'">
+                ← 이전 단계
+            </button>
+            <button type="submit" class="btn-primary" id="submit-survey-btn">
+                🎯 복지 추천 받기
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('step3-form');
+    const validationDiv = document.getElementById('form-validation');
+    const validationText = document.getElementById('validation-text');
+    const submitBtn = document.getElementById('submit-survey-btn');
+    
+    // 폼 데이터 저장 (localStorage 사용)
+    function saveFormData() {
+        const formData = new FormData(form);
+        const data = {};
+        
+        // 체크박스 처리
+        const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            data[checkbox.name] = checkbox.checked;
+        });
+        
+        // 라디오 버튼 처리
+        const radios = form.querySelectorAll('input[type="radio"]:checked');
+        radios.forEach(radio => {
+            data[radio.name] = radio.value;
+        });
+        
+        // 텍스트 입력 처리
+        const textInputs = form.querySelectorAll('textarea');
+        textInputs.forEach(input => {
+            data[input.name] = input.value;
+        });
+        
+        localStorage.setItem('step3_data', JSON.stringify(data));
+    }
+    
+    // 저장된 데이터 불러오기
+    function loadFormData() {
+        const savedData = localStorage.getItem('step3_data');
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            
+            Object.keys(data).forEach(key => {
+                const input = form.querySelector(`[name="${key}"]`);
+                if (input) {
+                    if (input.type === 'checkbox') {
+                        input.checked = data[key];
+                    } else if (input.type === 'radio') {
+                        const radioInput = form.querySelector(`[name="${key}"][value="${data[key]}"]`);
+                        if (radioInput) radioInput.checked = true;
+                    } else {
+                        input.value = data[key];
+                    }
+                }
+            });
+        }
+    }
+    
+    // 실시간 유효성 검사
+    function validateForm() {
+        const livingSituationSelected = form.querySelector('input[name="living_situation"]:checked');
+        const housingTypeSelected = form.querySelector('input[name="housing_type"]:checked');
+        const incomeLevelSelected = form.querySelector('input[name="income_level"]:checked');
+        
+        let isValid = true;
+        let errorMessage = '';
+        
+        if (!livingSituationSelected) {
+            isValid = false;
+            errorMessage = '가족 구성을 선택해주세요.';
+        } else if (!housingTypeSelected) {
+            isValid = false;
+            errorMessage = '주거 형태를 선택해주세요.';
+        } else if (!incomeLevelSelected) {
+            isValid = false;
+            errorMessage = '월 소득 수준을 선택해주세요.';
+        }
+        
+        if (!isValid) {
+            validationDiv.style.display = 'block';
+            validationText.textContent = errorMessage;
+            submitBtn.disabled = true;
+            submitBtn.classList.remove('enabled');
+        } else {
+            validationDiv.style.display = 'none';
+            submitBtn.disabled = false;
+            submitBtn.classList.add('enabled');
+        }
+        
+        return isValid;
+    }
+    
+    // 입력 필드 이벤트 리스너
+    form.addEventListener('change', function(e) {
+        validateForm();
+        saveFormData();
+    });
+    
+    form.addEventListener('input', function(e) {
+        saveFormData();
+    });
+    
+    // 폼 제출 처리
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (validateForm()) {
+            // 로딩 표시
+            submitBtn.innerHTML = '⏳ 분석 중...';
+            submitBtn.disabled = true;
+            
+            // 음성 안내
+            if ('speechSynthesis' in window) {
+                const msg = new SpeechSynthesisUtterance('AI가 맞춤형 복지 프로그램을 분석하고 있습니다. 잠시만 기다려주세요.');
+                msg.lang = 'ko-KR';
+                msg.rate = 0.8;
+                speechSynthesis.speak(msg);
+            }
+            
+            // SurveyManager의 submitSurvey 함수 호출
+            if (window.WelfareApp && window.WelfareApp.SurveyManager) {
+                window.WelfareApp.SurveyManager.submitSurvey();
+            } else {
+                // 폴백: 직접 서버 호출
+                setTimeout(() => {
+                    window.location.href = '/results';
+                }, 2000);
+            }
+        }
+    });
+    
+    // 체크박스/라디오 버튼 라벨 클릭 지원
+    const interactiveItems = document.querySelectorAll('.checkbox-item, .radio-item');
+    interactiveItems.forEach(item => {
+        const label = item.querySelector('label');
+        const input = item.querySelector('input');
+        
+        if (label && input) {
+            label.addEventListener('click', function(e) {
+                if (e.target === label) {
+                    if (input.type === 'checkbox') {
+                        input.checked = !input.checked;
+                    } else if (input.type === 'radio') {
+                        input.checked = true;
+                    }
+                    validateForm();
+                    saveFormData();
+                }
+            });
+        }
+    });
+    
+    // 초기 로드
+    loadFormData();
+    validateForm();
+    
+    // 첫 번째 요소에 포커스
+    const firstInput = form.querySelector('input, textarea');
+    if (firstInput) {
+        firstInput.focus();
+    }
+    
+    // 제출 버튼 강조 효과
+    setInterval(() => {
+        if (!submitBtn.disabled && submitBtn.classList.contains('enabled')) {
+            submitBtn.style.boxShadow = '0 0 20px rgba(37, 99, 235, 0.3)';
+            setTimeout(() => {
+                submitBtn.style.boxShadow = '';
+            }, 1000);
+        }
+    }, 3000);
+});
+</script>
+
+<style>
+.condition-desc {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    margin-top: var(--spacing-xs);
+}
+
+.checkbox-item label,
+.radio-item label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+#submit-survey-btn.enabled {
+    background: linear-gradient(45deg, var(--primary-color), #4f46e5);
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+}
+
+#submit-survey-btn.enabled:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+}
+</style>
+{% endblock %}

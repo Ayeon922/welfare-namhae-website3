@@ -1,0 +1,439 @@
+{% extends "base.html" %}
+
+{% set show_progress = true %}
+{% set current_step = 2 %}
+
+{% block title %}2단계: 건강 상태 - 노인 복지 추천 플랫폼{% endblock %}
+
+{% block content %}
+<div class="survey-step">
+    <div class="step-header">
+        <h1 class="step-title">2단계: 건강 상태 확인</h1>
+        <p class="step-description">현재 건강 상태와 관련된 질문에 답해주세요. 정확한 복지 프로그램 추천을 위해 필요합니다.</p>
+    </div>
+    
+    <form id="step2-form" class="survey-form">
+        <div class="form-section">
+            <h2 class="section-title">🏥 질병 및 건강 상태</h2>
+            <p class="section-description">현재 앓고 계신 질병이나 건강 상태를 모두 선택해주세요.</p>
+            
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="diabetes" name="diabetes" value="true">
+                    <label for="diabetes">
+                        <strong>당뇨병</strong>
+                        <span class="condition-desc">혈당 관리가 필요한 상태</span>
+                    </label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="hypertension" name="hypertension" value="true">
+                    <label for="hypertension">
+                        <strong>고혈압</strong>
+                        <span class="condition-desc">혈압 조절이 필요한 상태</span>
+                    </label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="arthritis" name="arthritis" value="true">
+                    <label for="arthritis">
+                        <strong>관절염</strong>
+                        <span class="condition-desc">무릎, 어깨 등 관절 통증</span>
+                    </label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="heart_disease" name="heart_disease" value="true">
+                    <label for="heart_disease">
+                        <strong>심장병</strong>
+                        <span class="condition-desc">심혈관 질환</span>
+                    </label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="stroke" name="stroke" value="true">
+                    <label for="stroke">
+                        <strong>뇌졸중</strong>
+                        <span class="condition-desc">중풍, 뇌혈관 질환</span>
+                    </label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="dementia" name="dementia" value="true">
+                    <label for="dementia">
+                        <strong>치매</strong>
+                        <span class="condition-desc">기억력 장애, 인지 기능 저하</span>
+                    </label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="mental_health" name="mental_health" value="true">
+                    <label for="mental_health">
+                        <strong>정신건강 문제</strong>
+                        <span class="condition-desc">우울증, 불안증 등</span>
+                    </label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="respiratory" name="respiratory" value="true">
+                    <label for="respiratory">
+                        <strong>호흡기 질환</strong>
+                        <span class="condition-desc">천식, 폐질환 등</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="section-title">♿ 장애 및 거동 불편</h2>
+            
+            <div class="form-group">
+                <label class="form-label">장애 등록 여부</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="no_disability" name="disability_status" value="none">
+                        <label for="no_disability">장애 없음</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="physical_disability" name="disability_status" value="physical">
+                        <label for="physical_disability">신체 장애</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="visual_disability" name="disability_status" value="visual">
+                        <label for="visual_disability">시각 장애</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="hearing_disability" name="disability_status" value="hearing">
+                        <label for="hearing_disability">청각 장애</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="intellectual_disability" name="disability_status" value="intellectual">
+                        <label for="intellectual_disability">지적 장애</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">거동 상태</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="mobility_good" name="mobility" value="good">
+                        <label for="mobility_good">
+                            <strong>양호</strong>
+                            <span class="condition-desc">혼자서 일상생활 가능</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="mobility_fair" name="mobility" value="fair">
+                        <label for="mobility_fair">
+                            <strong>보통</strong>
+                            <span class="condition-desc">약간의 도움 필요</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="mobility_poor" name="mobility" value="poor">
+                        <label for="mobility_poor">
+                            <strong>불편</strong>
+                            <span class="condition-desc">상당한 도움 필요</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="mobility_bedridden" name="mobility" value="bedridden">
+                        <label for="mobility_bedridden">
+                            <strong>침상 생활</strong>
+                            <span class="condition-desc">전적인 도움 필요</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="section-title">💊 복용 약물 및 치료</h2>
+            
+            <div class="form-group">
+                <label for="medications" class="form-label">현재 복용 중인 약물</label>
+                <textarea 
+                    id="medications" 
+                    name="medications" 
+                    class="form-textarea"
+                    rows="3"
+                    placeholder="예: 혈압약, 당뇨약, 관절염 치료제 등"
+                    aria-describedby="medications-help"
+                ></textarea>
+                <div id="medications-help" class="form-help">
+                    💡 복용 중인 약물이 있으시면 간단히 적어주세요. (선택사항)
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">정기 병원 치료 여부</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="no_treatment" name="regular_treatment" value="none">
+                        <label for="no_treatment">정기 치료 받지 않음</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="monthly_treatment" name="regular_treatment" value="monthly">
+                        <label for="monthly_treatment">월 1-2회 병원 방문</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="weekly_treatment" name="regular_treatment" value="weekly">
+                        <label for="weekly_treatment">주 1-2회 병원 방문</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="daily_treatment" name="regular_treatment" value="daily">
+                        <label for="daily_treatment">거의 매일 치료</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="section-title">🍽️ 영양 및 식사</h2>
+            
+            <div class="form-group">
+                <label class="form-label">식사 준비 상태</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="cook_self" name="meal_preparation" value="self">
+                        <label for="cook_self">스스로 식사 준비 가능</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="cook_help" name="meal_preparation" value="help">
+                        <label for="cook_help">가족이나 지인의 도움</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="cook_delivery" name="meal_preparation" value="delivery">
+                        <label for="cook_delivery">배달이나 도시락 서비스</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="cook_difficult" name="meal_preparation" value="difficult">
+                        <label for="cook_difficult">식사 준비 어려움</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="section-title">📝 기타 건강 정보</h2>
+            
+            <div class="form-group">
+                <label for="other_conditions" class="form-label">기타 건강 상태나 특이사항</label>
+                <textarea 
+                    id="other_conditions" 
+                    name="other_conditions" 
+                    class="form-textarea"
+                    rows="3"
+                    placeholder="위에 언급되지 않은 건강 상태나 특별히 알려드리고 싶은 내용이 있으시면 적어주세요."
+                    aria-describedby="other-help"
+                ></textarea>
+                <div id="other-help" class="form-help">
+                    💡 추가로 알려주시고 싶은 건강 정보가 있으시면 자유롭게 적어주세요.
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-validation" id="form-validation" style="display: none;">
+            <div class="validation-message error">
+                <span class="validation-icon">⚠️</span>
+                <span id="validation-text">거동 상태를 선택해주세요.</span>
+            </div>
+        </div>
+        
+        <div class="form-actions">
+            <button type="button" class="btn-secondary" onclick="window.location.href='{{ url_for('survey_step1') }}'">
+                ← 이전 단계
+            </button>
+            <button type="submit" class="btn-primary" id="next-step-btn">
+                다음 단계 →
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('step2-form');
+    const validationDiv = document.getElementById('form-validation');
+    const validationText = document.getElementById('validation-text');
+    const nextBtn = document.getElementById('next-step-btn');
+    
+    // 폼 데이터 저장 (localStorage 사용)
+    function saveFormData() {
+        const formData = new FormData(form);
+        const data = {};
+        
+        // 체크박스 처리
+        const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            data[checkbox.name] = checkbox.checked;
+        });
+        
+        // 라디오 버튼 처리
+        const radios = form.querySelectorAll('input[type="radio"]:checked');
+        radios.forEach(radio => {
+            data[radio.name] = radio.value;
+        });
+        
+        // 텍스트 입력 처리
+        const textInputs = form.querySelectorAll('textarea');
+        textInputs.forEach(input => {
+            data[input.name] = input.value;
+        });
+        
+        localStorage.setItem('step2_data', JSON.stringify(data));
+    }
+    
+    // 저장된 데이터 불러오기
+    function loadFormData() {
+        const savedData = localStorage.getItem('step2_data');
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            
+            Object.keys(data).forEach(key => {
+                const input = form.querySelector(`[name="${key}"]`);
+                if (input) {
+                    if (input.type === 'checkbox') {
+                        input.checked = data[key];
+                    } else if (input.type === 'radio') {
+                        const radioInput = form.querySelector(`[name="${key}"][value="${data[key]}"]`);
+                        if (radioInput) radioInput.checked = true;
+                    } else {
+                        input.value = data[key];
+                    }
+                }
+            });
+        }
+    }
+    
+    // 실시간 유효성 검사
+    function validateForm() {
+        const mobilitySelected = form.querySelector('input[name="mobility"]:checked');
+        const disabilitySelected = form.querySelector('input[name="disability_status"]:checked');
+        
+        let isValid = true;
+        let errorMessage = '';
+        
+        if (!mobilitySelected) {
+            isValid = false;
+            errorMessage = '거동 상태를 선택해주세요.';
+        } else if (!disabilitySelected) {
+            isValid = false;
+            errorMessage = '장애 등록 여부를 선택해주세요.';
+        }
+        
+        if (!isValid) {
+            validationDiv.style.display = 'block';
+            validationText.textContent = errorMessage;
+            nextBtn.disabled = true;
+        } else {
+            validationDiv.style.display = 'none';
+            nextBtn.disabled = false;
+        }
+        
+        return isValid;
+    }
+    
+    // 입력 필드 이벤트 리스너
+    form.addEventListener('change', function(e) {
+        validateForm();
+        saveFormData();
+    });
+    
+    form.addEventListener('input', function(e) {
+        saveFormData();
+    });
+    
+    // 폼 제출 처리
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (validateForm()) {
+            // 음성 안내
+            if ('speechSynthesis' in window) {
+                const msg = new SpeechSynthesisUtterance('세 번째 단계로 이동합니다.');
+                msg.lang = 'ko-KR';
+                msg.rate = 0.8;
+                speechSynthesis.speak(msg);
+            }
+            
+            // 다음 단계로 이동
+            window.location.href = "{{ url_for('survey_step3') }}";
+        }
+    });
+    
+    // 체크박스 라벨 클릭 지원
+    const checkboxItems = document.querySelectorAll('.checkbox-item');
+    checkboxItems.forEach(item => {
+        const label = item.querySelector('label');
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        
+        if (label && checkbox) {
+            label.addEventListener('click', function(e) {
+                if (e.target === label) {
+                    checkbox.checked = !checkbox.checked;
+                    saveFormData();
+                }
+            });
+        }
+    });
+    
+    // 라디오 버튼 라벨 클릭 지원
+    const radioItems = document.querySelectorAll('.radio-item');
+    radioItems.forEach(item => {
+        const label = item.querySelector('label');
+        const radio = item.querySelector('input[type="radio"]');
+        
+        if (label && radio) {
+            label.addEventListener('click', function(e) {
+                if (e.target === label) {
+                    radio.checked = true;
+                    validateForm();
+                    saveFormData();
+                }
+            });
+        }
+    });
+    
+    // 초기 로드
+    loadFormData();
+    validateForm();
+    
+    // 첫 번째 요소에 포커스
+    const firstInput = form.querySelector('input, textarea');
+    if (firstInput) {
+        firstInput.focus();
+    }
+});
+</script>
+
+<style>
+.condition-desc {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    margin-top: var(--spacing-xs);
+}
+
+.checkbox-item label,
+.radio-item label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+    font-style: italic;
+}
+
+.form-textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+</style>
+{% endblock %} 

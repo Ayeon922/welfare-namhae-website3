@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+
+{% block title %}오류 발생 - 노인 복지 추천 플랫폼{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-content">
+        <div class="error-icon">
+            {% if error_code == 404 %}
+                🔍
+            {% else %}
+                ⚠️
+            {% endif %}
+        </div>
+        
+        <h1 class="error-title">
+            {% if error_code == 404 %}
+                페이지를 찾을 수 없습니다
+            {% else %}
+                서비스 오류가 발생했습니다
+            {% endif %}
+        </h1>
+        
+        <div class="error-code">오류 코드: {{ error_code }}</div>
+        
+        <p class="error-message">
+            {{ error_message }}
+        </p>
+        
+        <div class="error-description">
+            {% if error_code == 404 %}
+                <p>요청하신 페이지를 찾을 수 없습니다. 주소를 다시 확인해주세요.</p>
+            {% else %}
+                <p>일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</p>
+            {% endif %}
+        </div>
+        
+        <div class="error-actions">
+            <a href="{{ url_for('index') }}" class="btn btn-primary">
+                🏠 홈으로 돌아가기
+            </a>
+            
+            <button onclick="history.back()" class="btn btn-secondary">
+                ← 이전 페이지
+            </button>
+            
+            <button onclick="location.reload()" class="btn btn-secondary">
+                🔄 새로고침
+            </button>
+        </div>
+        
+        <div class="help-section">
+            <h3>도움이 필요하신가요?</h3>
+            <div class="help-contacts">
+                <div class="help-item">
+                    <span class="help-icon">📞</span>
+                    <div>
+                        <strong>전화 문의</strong>
+                        <p>보건복지부 콜센터: 129</p>
+                    </div>
+                </div>
+                
+                <div class="help-item">
+                    <span class="help-icon">🏢</span>
+                    <div>
+                        <strong>방문 상담</strong>
+                        <p>가까운 주민센터 또는 복지관</p>
+                    </div>
+                </div>
+                
+                <div class="help-item">
+                    <span class="help-icon">🌐</span>
+                    <div>
+                        <strong>온라인 상담</strong>
+                        <p>정부24 복지 포털</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.error-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.error-content {
+    background: #fff;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.error-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+.error-title {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.error-code {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.error-message {
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.error-description {
+    color: #777;
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.error-actions {
+    margin-bottom: 40px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 5px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #545b62;
+    transform: translateY(-2px);
+}
+
+.help-section {
+    border-top: 1px solid #eee;
+    padding-top: 30px;
+}
+
+.help-section h3 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.help-contacts {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.help-item {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    max-width: 150px;
+}
+
+.help-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.help-item div {
+    text-align: left;
+}
+
+.help-item strong {
+    color: #333;
+    font-size: 14px;
+    display: block;
+}
+
+.help-item p {
+    color: #666;
+    font-size: 12px;
+    margin: 5px 0 0 0;
+}
+
+@media (max-width: 768px) {
+    .error-container {
+        margin: 20px auto;
+        padding: 10px;
+    }
+    
+    .error-content {
+        padding: 20px;
+    }
+    
+    .error-title {
+        font-size: 24px;
+    }
+    
+    .help-contacts {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .help-item {
+        max-width: none;
+        margin: 10px 0;
+    }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// 접근성 개선을 위한 스크립트
+document.addEventListener('DOMContentLoaded', function() {
+    // 음성 안내 (지원되는 브라우저에서)
+    if ('speechSynthesis' in window) {
+        var errorCode = parseInt('{{ error_code|default(500) }}');
+        var message = errorCode === 404 ? 
+            '페이지를 찾을 수 없습니다. 홈 버튼을 눌러 메인 페이지로 이동하세요.' :
+            '서비스 오류가 발생했습니다. 새로고침 버튼을 눌러 다시 시도해주세요.';
+        
+        var utterance = new SpeechSynthesisUtterance(message);
+        utterance.lang = 'ko-KR';
+        utterance.rate = 0.8;
+        utterance.volume = 0.7;
+        
+        // 3초 후 음성 안내 (사용자가 페이지를 읽을 시간 제공)
+        setTimeout(function() {
+            speechSynthesis.speak(utterance);
+        }, 3000);
+    }
+    
+    // 키보드 네비게이션 개선
+    var buttons = document.querySelectorAll('.btn');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    }
+});
+</script>
+{% endblock %} 

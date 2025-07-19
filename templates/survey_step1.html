@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+
+{% set show_progress = true %}
+{% set current_step = 1 %}
+
+{% block title %}1단계: 기본 정보 - 노인 복지 추천 플랫폼{% endblock %}
+
+{% block content %}
+<div class="survey-step">
+    <div class="step-header">
+        <h1 class="step-title">1단계: 기본 정보 입력</h1>
+        <p class="step-description">간단한 기본 정보를 입력해주세요. 모든 정보는 안전하게 보호됩니다.</p>
+    </div>
+    
+    <form id="step1-form" class="survey-form">
+        <div class="form-section">
+            <h2 class="section-title">👤 개인 정보</h2>
+            
+            <div class="form-group">
+                <label for="name" class="form-label">
+                    성함 <span class="required">*</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    class="form-input"
+                    placeholder="예: 홍길동"
+                    required
+                    aria-describedby="name-help"
+                >
+                <div id="name-help" class="form-help">
+                    💡 성함은 추천 결과에서만 사용됩니다.
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="age" class="form-label">
+                    나이 <span class="required">*</span>
+                </label>
+                <input 
+                    type="number" 
+                    id="age" 
+                    name="age" 
+                    class="form-input"
+                    placeholder="예: 70"
+                    min="60"
+                    max="120"
+                    required
+                    aria-describedby="age-help"
+                >
+                <div id="age-help" class="form-help">
+                    💡 만 나이를 입력해주세요.
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="birth_date" class="form-label">
+                    생년월일 <span class="required">*</span>
+                </label>
+                <input 
+                    type="date" 
+                    id="birth_date" 
+                    name="birth_date" 
+                    class="form-input"
+                    required
+                    aria-describedby="birth-help"
+                >
+                <div id="birth-help" class="form-help">
+                    💡 정확한 복지 혜택 확인을 위해 필요합니다.
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="section-title">🏠 거주 정보</h2>
+            
+            <div class="form-group">
+                <label for="region" class="form-label">
+                    거주 지역 <span class="required">*</span>
+                </label>
+                <select 
+                    id="region" 
+                    name="region" 
+                    class="form-select"
+                    required
+                    aria-describedby="region-help"
+                >
+                    <option value="">지역을 선택해주세요</option>
+                    <option value="서울특별시">서울특별시</option>
+                    <option value="부산광역시">부산광역시</option>
+                    <option value="대구광역시">대구광역시</option>
+                    <option value="인천광역시">인천광역시</option>
+                    <option value="광주광역시">광주광역시</option>
+                    <option value="대전광역시">대전광역시</option>
+                    <option value="울산광역시">울산광역시</option>
+                    <option value="세종특별자치시">세종특별자치시</option>
+                    <option value="경기도">경기도</option>
+                    <option value="강원도">강원도</option>
+                    <option value="충청북도">충청북도</option>
+                    <option value="충청남도">충청남도</option>
+                    <option value="전라북도">전라북도</option>
+                    <option value="전라남도">전라남도</option>
+                    <option value="경상북도">경상북도</option>
+                    <option value="경상남도">경상남도</option>
+                    <option value="제주특별자치도">제주특별자치도</option>
+                </select>
+                <div id="region-help" class="form-help">
+                    💡 지역별 복지 프로그램 추천을 위해 필요합니다.
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="detailed_address" class="form-label">
+                    상세 주소 (선택)
+                </label>
+                <input 
+                    type="text" 
+                    id="detailed_address" 
+                    name="detailed_address" 
+                    class="form-input"
+                    placeholder="예: 강남구 역삼동"
+                    aria-describedby="address-help"
+                >
+                <div id="address-help" class="form-help">
+                    💡 시/군/구 단위로 입력하시면 더 정확한 추천이 가능합니다.
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="section-title">📞 연락처 (선택)</h2>
+            
+            <div class="form-group">
+                <label for="phone" class="form-label">
+                    연락처 (선택)
+                </label>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    class="form-input"
+                    placeholder="예: 010-1234-5678"
+                    aria-describedby="phone-help"
+                >
+                <div id="phone-help" class="form-help">
+                    💡 추후 복지 관련 안내를 위해 입력하실 수 있습니다.
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-validation" id="form-validation" style="display: none;">
+            <div class="validation-message error">
+                <span class="validation-icon">⚠️</span>
+                <span id="validation-text">필수 항목을 모두 입력해주세요.</span>
+            </div>
+        </div>
+        
+        <div class="form-actions">
+            <button type="button" class="btn-secondary" onclick="history.back()">
+                ← 이전 단계
+            </button>
+            <button type="submit" class="btn-primary" id="next-step-btn">
+                다음 단계 →
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('step1-form');
+    const validationDiv = document.getElementById('form-validation');
+    const validationText = document.getElementById('validation-text');
+    const nextBtn = document.getElementById('next-step-btn');
+    
+    // 폼 데이터 저장 (localStorage 사용)
+    function saveFormData() {
+        const formData = new FormData(form);
+        const data = {};
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
+        }
+        localStorage.setItem('step1_data', JSON.stringify(data));
+    }
+    
+    // 저장된 데이터 불러오기
+    function loadFormData() {
+        const savedData = localStorage.getItem('step1_data');
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            Object.keys(data).forEach(key => {
+                const input = form.querySelector(`[name="${key}"]`);
+                if (input) {
+                    input.value = data[key];
+                }
+            });
+        }
+    }
+    
+    // 실시간 유효성 검사
+    function validateForm() {
+        const name = document.getElementById('name').value.trim();
+        const age = document.getElementById('age').value;
+        const birthDate = document.getElementById('birth_date').value;
+        const region = document.getElementById('region').value;
+        
+        let isValid = true;
+        let errorMessage = '';
+        
+        if (!name) {
+            isValid = false;
+            errorMessage = '성함을 입력해주세요.';
+        } else if (!age || age < 60 || age > 120) {
+            isValid = false;
+            errorMessage = '나이를 올바르게 입력해주세요. (60세 이상)';
+        } else if (!birthDate) {
+            isValid = false;
+            errorMessage = '생년월일을 입력해주세요.';
+        } else if (!region) {
+            isValid = false;
+            errorMessage = '거주 지역을 선택해주세요.';
+        }
+        
+        // 나이와 생년월일 일치 여부 확인
+        if (age && birthDate) {
+            const birth = new Date(birthDate);
+            const today = new Date();
+            const calculatedAge = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                calculatedAge--;
+            }
+            
+            if (Math.abs(calculatedAge - parseInt(age)) > 1) {
+                isValid = false;
+                errorMessage = '나이와 생년월일이 일치하지 않습니다.';
+            }
+        }
+        
+        if (!isValid) {
+            validationDiv.style.display = 'block';
+            validationText.textContent = errorMessage;
+            nextBtn.disabled = true;
+        } else {
+            validationDiv.style.display = 'none';
+            nextBtn.disabled = false;
+        }
+        
+        return isValid;
+    }
+    
+    // 입력 필드 이벤트 리스너
+    form.addEventListener('input', function(e) {
+        validateForm();
+        saveFormData();
+    });
+    
+    form.addEventListener('change', function(e) {
+        validateForm();
+        saveFormData();
+    });
+    
+    // 폼 제출 처리
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (validateForm()) {
+            // 음성 안내
+            if ('speechSynthesis' in window) {
+                const msg = new SpeechSynthesisUtterance('두 번째 단계로 이동합니다.');
+                msg.lang = 'ko-KR';
+                msg.rate = 0.8;
+                speechSynthesis.speak(msg);
+            }
+            
+            // 다음 단계로 이동
+            window.location.href = "{{ url_for('survey_step2') }}";
+        }
+    });
+    
+    // 접근성: 키보드 내비게이션
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
+            e.preventDefault();
+            const inputs = Array.from(form.querySelectorAll('input, select'));
+            const currentIndex = inputs.indexOf(e.target);
+            
+            if (currentIndex < inputs.length - 1) {
+                inputs[currentIndex + 1].focus();
+            } else {
+                nextBtn.focus();
+            }
+        }
+    });
+    
+    // 초기 로드
+    loadFormData();
+    validateForm();
+    
+    // 첫 번째 입력 필드에 포커스
+    document.getElementById('name').focus();
+});
+</script>
+{% endblock %} 

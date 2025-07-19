@@ -1,0 +1,197 @@
+/* 접근성 전용 스타일 */
+
+/* 글씨 크기 조절 */
+.font-size-large {
+    font-size: 120% !important;
+}
+
+.font-size-large h1 { font-size: calc(var(--font-size-4xl) * 1.2) !important; }
+.font-size-large h2 { font-size: calc(var(--font-size-3xl) * 1.2) !important; }
+.font-size-large h3 { font-size: calc(var(--font-size-2xl) * 1.2) !important; }
+.font-size-large h4 { font-size: calc(var(--font-size-xl) * 1.2) !important; }
+.font-size-large h5 { font-size: calc(var(--font-size-lg) * 1.2) !important; }
+.font-size-large h6 { font-size: calc(var(--font-size-base) * 1.2) !important; }
+
+.font-size-large p,
+.font-size-large .form-label,
+.font-size-large .form-input,
+.font-size-large .form-select,
+.font-size-large .btn-primary,
+.font-size-large .btn-secondary,
+.font-size-large .cta-button {
+    font-size: calc(var(--font-size-base) * 1.2) !important;
+}
+
+.font-size-xlarge {
+    font-size: 150% !important;
+}
+
+.font-size-xlarge h1 { font-size: calc(var(--font-size-4xl) * 1.5) !important; }
+.font-size-xlarge h2 { font-size: calc(var(--font-size-3xl) * 1.5) !important; }
+.font-size-xlarge h3 { font-size: calc(var(--font-size-2xl) * 1.5) !important; }
+.font-size-xlarge h4 { font-size: calc(var(--font-size-xl) * 1.5) !important; }
+.font-size-xlarge h5 { font-size: calc(var(--font-size-lg) * 1.5) !important; }
+.font-size-xlarge h6 { font-size: calc(var(--font-size-base) * 1.5) !important; }
+
+.font-size-xlarge p,
+.font-size-xlarge .form-label,
+.font-size-xlarge .form-input,
+.font-size-xlarge .form-select,
+.font-size-xlarge .btn-primary,
+.font-size-xlarge .btn-secondary,
+.font-size-xlarge .cta-button {
+    font-size: calc(var(--font-size-base) * 1.5) !important;
+}
+
+/* 고대비 모드 */
+.high-contrast {
+    --primary-color: #000000 !important;
+    --primary-hover: #333333 !important;
+    --bg-primary: #ffffff !important;
+    --bg-secondary: #f0f0f0 !important;
+    --bg-gray: #e0e0e0 !important;
+    --text-primary: #000000 !important;
+    --text-secondary: #000000 !important;
+    --text-muted: #333333 !important;
+    --border-color: #000000 !important;
+}
+
+.high-contrast .btn-primary,
+.high-contrast .cta-button.primary {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #000000 !important;
+}
+
+.high-contrast .btn-primary:hover,
+.high-contrast .cta-button.primary:hover {
+    background: #333333 !important;
+    color: #ffffff !important;
+}
+
+.high-contrast .btn-secondary,
+.high-contrast .cta-button.secondary {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+}
+
+.high-contrast .btn-secondary:hover,
+.high-contrast .cta-button.secondary:hover {
+    background: #f0f0f0 !important;
+    color: #000000 !important;
+}
+
+.high-contrast .form-input,
+.high-contrast .form-select {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+}
+
+.high-contrast .form-input:focus,
+.high-contrast .form-select:focus {
+    outline: 3px solid #000000 !important;
+    outline-offset: 2px !important;
+}
+
+.high-contrast .feature-item,
+.high-contrast .user-card,
+.high-contrast .contact-item {
+    background: #ffffff !important;
+    border: 2px solid #000000 !important;
+}
+
+.high-contrast a {
+    color: #000000 !important;
+    text-decoration: underline !important;
+}
+
+.high-contrast a:hover {
+    color: #333333 !important;
+}
+
+/* 포커스 가시성 개선 */
+*:focus {
+    outline: 3px solid var(--primary-color) !important;
+    outline-offset: 2px !important;
+}
+
+/* 스크린 리더 전용 텍스트 */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0.25rem 0.5rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    background: var(--primary-color);
+    color: white;
+}
+
+/* 키보드 내비게이션 개선 */
+.keyboard-navigation *:focus {
+    outline: 3px solid var(--primary-color) !important;
+    outline-offset: 2px !important;
+}
+
+/* 애니메이션 감소 */
+.reduce-motion * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+
+/* 읽기 모드 */
+.reading-mode {
+    background: #f9f9f9 !important;
+    color: #000000 !important;
+    line-height: 1.8 !important;
+}
+
+.reading-mode h1,
+.reading-mode h2,
+.reading-mode h3,
+.reading-mode h4,
+.reading-mode h5,
+.reading-mode h6 {
+    color: #000000 !important;
+    margin-bottom: 1rem !important;
+}
+
+.reading-mode p {
+    color: #000000 !important;
+    margin-bottom: 1rem !important;
+}
+
+/* 터치 친화적 버튼 크기 */
+@media (pointer: coarse) {
+    .btn-primary,
+    .btn-secondary,
+    .cta-button,
+    .accessibility-btn {
+        min-height: 44px !important;
+        min-width: 44px !important;
+        padding: 12px 24px !important;
+    }
+    
+    .form-input,
+    .form-select {
+        min-height: 44px !important;
+        padding: 12px 16px !important;
+    }
+} 
